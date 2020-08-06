@@ -94,6 +94,10 @@ a:hover {
 .tab__card {
   min-height: 500px;
 }
+
+.anticon {
+  cursor: pointer !important;
+}
 /* ---------------------------- */
 /* Right Sider */
 /* ---------------------------- */
