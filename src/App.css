@@ -2,8 +2,8 @@
 
 body {
   background: #f0f2f5 !important;
-  font-family: "Raleway", sans-serif !important;
-  /* font-family: "Inter", sans-serif !important; */
+  /* font-family: "Raleway", sans-serif !important; */
+  font-family: "Inter", sans-serif !important;
   user-select: none;
 }
 ::-webkit-scrollbar {
@@ -89,6 +89,10 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+.tab__card {
+  min-height: 500px;
 }
 /* ---------------------------- */
 /* Right Sider */

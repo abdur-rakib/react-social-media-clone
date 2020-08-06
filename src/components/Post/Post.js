@@ -41,7 +41,7 @@ const Post = () => {
         <MessageOutlined style={{ fontSize: "20px" }} />
         <ShareAltOutlined style={{ fontSize: "20px" }} />
 
-        <Popover content={content} trigger="click">
+        <Popover content={content} trigger="hover">
           <MoreOutlined style={{ fontSize: "20px" }} />
         </Popover>
       </div>
