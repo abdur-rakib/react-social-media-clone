@@ -14,3 +14,7 @@
 /* .login-form-button {
   margin-top: -50px;
 } */
+
+.ant-form-item-explain {
+  font-size: 12px !important;
+}

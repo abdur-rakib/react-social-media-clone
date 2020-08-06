@@ -5,10 +5,10 @@ const CreatePost = () => {
   return (
     <Card bordered={false} className="mb-2 ml-4 mr-4 mr-md-0">
       <div className="row">
-        <div className="col-1">
+        <div className="col-1 pr-1">
           <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
         </div>
-        <div className="col-11 pl-2">
+        <div className="col-11">
           <Form.Item>
             <Input.TextArea placeholder="Write something..." />
           </Form.Item>

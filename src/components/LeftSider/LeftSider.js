@@ -5,10 +5,10 @@ import {
   NotificationOutlined,
   HomeOutlined,
   UserOutlined,
-  MoreOutlined,
   MailOutlined,
 } from "@ant-design/icons";
 import { Menu, Layout } from "antd";
+import { Link } from "react-router-dom";
 
 const { Sider } = Layout;
 
@@ -22,28 +22,27 @@ const LeftSider = () => {
       onCollapse={() => setCollapsed(!collapsed)}
       breakpoint="md"
     >
-      <div className="logo">Mukh</div>
+      <div className="logo">
+        <span className="font-italic">MB</span>
+      </div>
       <Menu theme="" defaultSelectedKeys={["1"]} mode="inline">
         <Menu.Item key="1" icon={<HomeOutlined />}>
-          Home
+          <Link to="/">Home</Link>
         </Menu.Item>
         <Menu.Item key="2" icon={<NotificationOutlined />}>
-          Explore
+          <Link to="/explore">Explore</Link>
         </Menu.Item>
         <Menu.Item key="3" icon={<NotificationOutlined />}>
-          Notifications
+          <Link to="/notifications"> Notifications</Link>
         </Menu.Item>
         <Menu.Item key="4" icon={<MailOutlined />}>
-          Message
+          <Link to="/message"> Message</Link>
         </Menu.Item>
         <Menu.Item key="5" icon={<UserOutlined />}>
-          Profile
+          <Link to="/profile"> Profile</Link>
         </Menu.Item>
         <Menu.Item key="6" icon={<SaveOutlined />}>
-          Bookmarks
-        </Menu.Item>
-        <Menu.Item key="7" icon={<MoreOutlined />}>
-          More
+          <Link to="/bookmarks"> Bookmarks</Link>
         </Menu.Item>
       </Menu>
     </Sider>

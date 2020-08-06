@@ -60,6 +60,11 @@ body {
 .ant-menu-inline-collapsed {
   width: 81px;
 }
+
+a:hover {
+  color: inherit !important;
+  text-decoration: none !important;
+}
 /* ---------------------------- */
 /* Header */
 /* ---------------------------- */
