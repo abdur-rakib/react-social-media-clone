@@ -1,38 +1,90 @@
+@import "~antd/dist/antd.css";
+
+body {
+  background: #f0f2f5 !important;
+  font-family: "Raleway", sans-serif !important;
+  /* font-family: "Inter", sans-serif !important; */
+  user-select: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
 .App {
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ---------------------------- */
+/* Side bar */
+/* ---------------------------- */
+.site-layout-background {
+  background: #fff;
+}
+.logo {
+  background: rgba(255, 255, 255, 0.2);
+  margin: 7px;
+  font-weight: bold;
+  transition: all 0.01s !important;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.ant-layout {
+  background: #f0f2f5;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.ant-menu {
+  height: 100vh;
+  transition: all 0.01s !important;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.ant-menu-item {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+.ant-layout-sider-children {
+  background: #fff;
+  position: fixed;
+  max-width: 200px;
+}
+.ant-layout-sider-trigger {
+  background: #181a1d48;
+}
+.ant-menu-inline {
+  min-width: 199px;
+  border-right: none;
+}
+.ant-menu-inline .ant-menu-item {
+  color: black;
+}
+.ant-menu-item-selected {
+  color: #1890ff !important;
+}
+.ant-menu-inline-collapsed {
+  width: 81px;
+}
+/* ---------------------------- */
+/* Header */
+/* ---------------------------- */
+.ant-layout-header {
+  height: 42px;
+  background-color: #f0f2f5;
+  line-height: 40px;
+}
+/* ---------------------------- */
+/* Content */
+/* ---------------------------- */
+
+.ant-divider-horizontal {
+  margin: 10px 0;
 }
 
-.App-link {
-  color: #61dafb;
+.ant-card-body {
+  padding: 10px;
+  padding-top: 15px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
+/* ---------------------------- */
+/* Right Sider */
+/* ---------------------------- */
