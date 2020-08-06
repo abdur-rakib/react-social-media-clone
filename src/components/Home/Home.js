@@ -6,6 +6,11 @@ import Posts from "../Posts/Posts";
 import CreatePost from "../CreatePost/CreatePost";
 import Title from "../Title";
 import { BrowserRouter, Route } from "react-router-dom";
+import Explore from "../Explore/Eplore";
+import Message from "../Message/Message";
+import Notifications from "../Notifications/Notifications";
+import Profile from "../Profile/Profile";
+import Bookmarks from "../Bookmarks/Bookmarks";
 
 const Home = () => {
   return (
@@ -16,15 +21,32 @@ const Home = () => {
           <Layout>
             <div className="row">
               <div className="col-md-7 p-0">
-                <Title />
                 <Route exact path="/">
+                  <Title title="Home" />
                   <>
                     <CreatePost />
                     <Posts />
                   </>
                 </Route>
                 <Route eaxct path="/explore">
-                  <h1>Explore</h1>
+                  <Title title="Explore" />
+                  <Explore />
+                </Route>
+                <Route eaxct path="/notifications">
+                  <Title title="Notifications" />
+                  <Notifications />
+                </Route>
+                <Route eaxct path="/message">
+                  <Title title="Message" />
+                  <Message />
+                </Route>
+                <Route eaxct path="/profile">
+                  <Title title="Profile" />
+                  <Profile />
+                </Route>
+                <Route eaxct path="/bookmarks">
+                  <Title title="Bookmarks" />
+                  <Bookmarks />
                 </Route>
               </div>
               <div className="col-md-5 pl-0">

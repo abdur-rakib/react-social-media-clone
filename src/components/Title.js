@@ -2,8 +2,8 @@ import React from "react";
 import { Layout } from "antd";
 const { Header } = Layout;
 
-const Title = () => {
-  return <Header className="text-dark">Home</Header>;
+const Title = ({ title }) => {
+  return <Header className="text-dark">{title}</Header>;
 };
 
 export default Title;
