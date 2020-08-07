@@ -1,7 +1,7 @@
 import { SET_AUTHENTICATED, SET_UNAUTHENTICATED, SET_USER } from "../types";
 
 const initialState = {
-  authenticated: true,
+  authenticated: false,
   credentials: {},
   likes: [],
   posts: [],

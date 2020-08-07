@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Checkbox, Card } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-
 import "./Login.css";
+import { connect } from "react-redux";
+import { loginUser } from "../../redux/actions/userActions";
 
 const Login = (props) => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const onFinish = () => {
+    const userData = {
+      email,
+      password,
+    };
+    props.loginUser(userData, props.history);
   };
 
   return (
     <div className="row">
-      <div className="col-md-6 mx-auto p-4">
+      <div className="col-sm-8 col-md-6 mx-auto p-4">
         <Card className="px-4 py-1 mx-4">
           <h2 className="text-center mb-3">Login</h2>
           <Form
@@ -24,17 +31,22 @@ const Login = (props) => {
             onFinish={onFinish}
           >
             <Form.Item
-              name="username"
+              name="email"
               rules={[
                 {
+                  type: "email",
+                  message: "The input is not valid E-mail!",
+                },
+                {
                   required: true,
-                  message: "Please input your Username!",
+                  message: "Please input your E-mail!",
                 },
               ]}
             >
               <Input
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Username"
+                prefix={<MailOutlined className="site-form-item-icon" />}
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Item>
             <Form.Item
@@ -50,6 +62,7 @@ const Login = (props) => {
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
                 placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Item>
             <Form.Item>
@@ -64,6 +77,7 @@ const Login = (props) => {
 
             <Form.Item>
               <Button
+                loading={props.UI.loading}
                 type="primary"
                 htmlType="submit"
                 className="login-form-button"
@@ -80,5 +94,10 @@ const Login = (props) => {
     </div>
   );
 };
-
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    UI: state.UI,
+  };
+};
+const mapActionsToProps = { loginUser };
+export default connect(mapStateToProps, mapActionsToProps)(Login);

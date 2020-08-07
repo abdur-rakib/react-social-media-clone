@@ -7,6 +7,13 @@ import Home from "./components/Home/Home";
 // Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import axios from "axios";
+
+axios.defaults.baseURL =
+  "https://cors-anywhere.herokuapp.com/https://us-central1-react-mukh-boi-project.cloudfunctions.net/api";
+
+const token = localStorage.FBIdToken;
+
 const App = () => {
   return (
     <div className="App">

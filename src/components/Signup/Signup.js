@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Checkbox, Card } from "antd";
 import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+// User actions
+import { signupUser } from "../../redux/actions/userActions";
 
 const Signup = (props) => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
+  const [handle, setHandle] = useState();
+  const onFinish = () => {
+    const newUserData = {
+      email,
+      password,
+      confirmPassword,
+      handle,
+    };
+    props.signupUser(newUserData, props.history);
   };
   return (
     <div className="row">
@@ -21,7 +35,7 @@ const Signup = (props) => {
             onFinish={onFinish}
           >
             <Form.Item
-              name="username"
+              name="email"
               rules={[
                 {
                   type: "email",
@@ -36,6 +50,7 @@ const Signup = (props) => {
               <Input
                 prefix={<MailOutlined className="site-form-item-icon" />}
                 placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Item>
             <Form.Item
@@ -51,6 +66,7 @@ const Signup = (props) => {
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
                 placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Item>
             <Form.Item
@@ -66,6 +82,7 @@ const Signup = (props) => {
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
                 placeholder="Confirm Password"
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </Form.Item>
             <Form.Item
@@ -80,6 +97,7 @@ const Signup = (props) => {
               <Input
                 prefix={<UserOutlined className="site-form-item-icon" />}
                 placeholder="Handle"
+                onChange={(e) => setHandle(e.target.value)}
               />
             </Form.Item>
             <Form.Item
@@ -103,6 +121,7 @@ const Signup = (props) => {
                 type="primary"
                 htmlType="submit"
                 className="login-form-button"
+                loading={props.UI.loading}
               >
                 Register
               </Button>
@@ -116,5 +135,14 @@ const Signup = (props) => {
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    UI: state.UI,
+  };
+};
+const mapActionsToProps = {
+  signupUser,
+};
 
-export default Signup;
+export default connect(mapStateToProps, mapActionsToProps)(Signup);
