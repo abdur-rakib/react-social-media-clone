@@ -14,49 +14,47 @@ import Bookmarks from "../Bookmarks/Bookmarks";
 
 const Home = () => {
   return (
-    <div>
-      <Layout style={{ minHeight: "100vh" }}>
-        <BrowserRouter>
-          <LeftSider />
-          <Layout>
-            <div className="row">
-              <div className="col-md-7 p-0">
-                <Route exact path="/">
-                  <Title title="Home" />
-                  <>
-                    <CreatePost />
-                    <Posts />
-                  </>
-                </Route>
-                <Route eaxct path="/explore">
-                  <Title title="Explore" />
-                  <Explore />
-                </Route>
-                <Route eaxct path="/notifications">
-                  <Title title="Notifications" />
-                  <Notifications />
-                </Route>
-                <Route eaxct path="/message">
-                  <Title title="Message" />
-                  <Message />
-                </Route>
-                <Route eaxct path="/profile">
-                  <Title title="Profile" />
-                  <Profile />
-                </Route>
-                <Route eaxct path="/bookmarks">
-                  <Title title="Bookmarks" />
-                  <Bookmarks />
-                </Route>
-              </div>
-              <div className="col-md-5 pl-0">
-                <RightSider />
-              </div>
+    <Layout style={{ minHeight: "100vh" }}>
+      <BrowserRouter>
+        <LeftSider />
+        <Layout>
+          <div className="row">
+            <div className="col-md-7 p-0">
+              <Route exact path="/">
+                <Title title="Home" />
+                <>
+                  <CreatePost />
+                  <Posts />
+                </>
+              </Route>
+              <Route eaxct path="/explore">
+                <Title title="Explore" />
+                <Explore />
+              </Route>
+              <Route eaxct path="/notifications">
+                <Title title="Notifications" />
+                <Notifications />
+              </Route>
+              <Route eaxct path="/message">
+                <Title title="Message" />
+                <Message />
+              </Route>
+              <Route eaxct path="/profile">
+                <Title title="Profile" />
+                <Profile />
+              </Route>
+              <Route eaxct path="/bookmarks">
+                <Title title="Bookmarks" />
+                <Bookmarks />
+              </Route>
             </div>
-          </Layout>
-        </BrowserRouter>
-      </Layout>
-    </div>
+            <div className="col-md-5 pl-0">
+              <RightSider />
+            </div>
+          </div>
+        </Layout>
+      </BrowserRouter>
+    </Layout>
   );
 };
 

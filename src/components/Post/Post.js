@@ -32,7 +32,7 @@ const Post = () => {
         description="This is the description This is the description This is the description This is the description This is the description"
       />
       <small className="ml-5 mt-4 font-italic">
-        Posted
+        - Posted
         <span className="ml-1">25 minutes ago</span>
       </small>
       <Divider />

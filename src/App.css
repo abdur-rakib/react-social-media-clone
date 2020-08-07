@@ -98,6 +98,16 @@ a:hover {
 .anticon {
   cursor: pointer !important;
 }
+
+.post-form {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: #f0f2f5 !important;
+  margin-bottom: 7px;
+  resize: none;
+  font-size: 14px !important;
+}
 /* ---------------------------- */
 /* Right Sider */
 /* ---------------------------- */
