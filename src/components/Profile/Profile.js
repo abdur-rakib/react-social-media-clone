@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Card, Button, Tabs, Form, Input, Modal } from "antd";
-import { EnvironmentOutlined, MonitorOutlined } from "@ant-design/icons";
+import {
+  EnvironmentOutlined,
+  MonitorOutlined,
+  CalendarOutlined,
+} from "@ant-design/icons";
 import Posts from "../Posts/Posts";
 import { connect } from "react-redux";
 import { editUserDetails } from "../../redux/actions/userActions";
+
+import moment from "moment";
 const { TabPane } = Tabs;
 
 const Profile = ({ user, UI, editUserDetails }) => {
@@ -38,14 +44,13 @@ const Profile = ({ user, UI, editUserDetails }) => {
 
     setTimeout(() => {
       setVisible(false);
-    }, 2000);
+    }, 1000);
   };
 
   const handleCancel = () => {
     setVisible(false);
   };
   const { credentials } = user;
-  console.log(bio, website, location);
   return (
     <div>
       <Modal
@@ -64,7 +69,7 @@ const Profile = ({ user, UI, editUserDetails }) => {
             disabled={UI.loading}
             onClick={handleOk}
           >
-            Update
+            {UI.loading === true ? "Updating" : "Update"}
           </Button>,
         ]}
       >
@@ -94,12 +99,18 @@ const Profile = ({ user, UI, editUserDetails }) => {
       </Modal>
       <Card className="ml-4 tab__card">
         <div className="row justify-content-center text-center">
-          <div className="col-lg-3">
-            <img
-              src={credentials.imageUrl}
-              alt=""
-              className="img-fluid rounded-circle"
-            />
+          <div className="col-lg-3 ">
+            <div>
+              <img
+                src={credentials.imageUrl}
+                alt=""
+                className="img-fluid rounded-circle"
+              />
+              <small className="text-center my-2 d-block">
+                <CalendarOutlined /> Joined{" "}
+                {moment(user.credentials.createdAt).format("MMM Do YY")}
+              </small>
+            </div>
           </div>
           <div className="col-lg-7 ml-3">
             <div className="user__info">

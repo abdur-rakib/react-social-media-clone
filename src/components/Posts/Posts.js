@@ -1,28 +1,26 @@
 import React, { useEffect } from "react";
 import Post from "../Post/Post";
-import axios from "axios";
 import { connect } from "react-redux";
+import { getPosts } from "../../redux/actions/dataActions";
 
 const Posts = (props) => {
   useEffect(() => {
-    axios.get("/posts").then((res) => {
-      // console.log(res.data);
-    });
+    props.getPosts();
+    // eslint-disable-next-line
   }, []);
   // console.log(props.user);
-  return (
-    <div>
-      <Post />
-      <Post />
-      <Post />
-    </div>
-  );
+  const renderPosts =
+    props.data.posts.length === 0
+      ? null
+      : props.data.posts.map((post) => <Post key={post.postId} post={post} />);
+  return <>{renderPosts}</>;
 };
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    data: state.data,
   };
 };
-const mapActionsToProps = {};
+const mapActionsToProps = { getPosts };
 
 export default connect(mapStateToProps, mapActionsToProps)(Posts);

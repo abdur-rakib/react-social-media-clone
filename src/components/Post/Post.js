@@ -8,7 +8,9 @@ import {
 } from "@ant-design/icons";
 const { Meta } = Card;
 
-const Post = () => {
+const Post = ({
+  post: { userHandle, likeCount, commentCount, body, createdAt, userImage },
+}) => {
   const content = (
     <div className="d-flex flex-column">
       <Button size="small" type="text">
@@ -25,11 +27,9 @@ const Post = () => {
   return (
     <Card bordered={false} className="mb-2 ml-4 mr-4 mr-md-0">
       <Meta
-        avatar={
-          <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-        }
-        title="John Doe"
-        description="This is the description This is the description This is the description This is the description This is the description"
+        avatar={<Avatar src={userImage} />}
+        title={userHandle}
+        description={body}
       />
       <small className="ml-5 mt-4 font-italic">
         - Posted
