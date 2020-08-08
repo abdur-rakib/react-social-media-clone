@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Checkbox, Card } from "antd";
 import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -21,6 +21,11 @@ const Signup = (props) => {
     };
     props.signupUser(newUserData, props.history);
   };
+  useEffect(() => {
+    if (props.user.authenticated) {
+      props.history.push("/");
+    }
+  }, [props.user.authenticated, props.history]);
   return (
     <div className="row">
       <div className="col-sm-8 col-md-6 mx-auto p-4">
@@ -121,9 +126,9 @@ const Signup = (props) => {
                 type="primary"
                 htmlType="submit"
                 className="login-form-button"
-                loading={props.UI.loading}
+                disabled={props.UI.loading}
               >
-                Register
+                {props.UI.loading ? "Registering" : "Register"}
               </Button>
               <span className="text-center d-block mt-1">
                 Already have an account? <Link to="/login">login now!</Link>

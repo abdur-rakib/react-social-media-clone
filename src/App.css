@@ -108,6 +108,10 @@ a:hover {
   resize: none;
   font-size: 14px !important;
 }
+
+.ant-modal-close-x {
+  display: none !important;
+}
 /* ---------------------------- */
 /* Right Sider */
 /* ---------------------------- */

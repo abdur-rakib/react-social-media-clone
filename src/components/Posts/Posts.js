@@ -6,10 +6,10 @@ import { connect } from "react-redux";
 const Posts = (props) => {
   useEffect(() => {
     axios.get("/posts").then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
     });
   }, []);
-  console.log(props.user);
+  // console.log(props.user);
   return (
     <div>
       <Post />

@@ -2,7 +2,9 @@ import React from "react";
 import { Card } from "antd";
 import Users from "../Users/Users";
 import Search from "../Search/Search";
-const RightSider = () => {
+import { connect } from "react-redux";
+const RightSider = (props) => {
+  const { handle, imageUrl } = props.credentials;
   return (
     <div className="ml-4 ml-md-2">
       <Card bordered={false} className="py-3 ">
@@ -11,12 +13,12 @@ const RightSider = () => {
         </div>
         <div className="myProfile d-flex align-items-center justify-content-center">
           <img
-            src="https://instagram.fdac18-1.fna.fbcdn.net/v/t51.2885-19/s150x150/75487940_662821564251206_3433074471882194944_n.jpg?_nc_ht=instagram.fdac18-1.fna.fbcdn.net&_nc_ohc=d1nptx6aiwoAX9RknSG&oh=541de13db1a9bbc360949ff02f0cbfc2&oe=5F5797A5"
+            src={imageUrl}
             alt=""
             className="img-fluid  rounded-circle"
             style={{ width: "60px" }}
           />
-          <h5 className="ml-3">John Doe</h5>
+          <h5 className="ml-3">{handle}</h5>
         </div>
 
         <Users />
@@ -24,5 +26,10 @@ const RightSider = () => {
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    credentials: state.user.credentials,
+  };
+};
 
-export default RightSider;
+export default connect(mapStateToProps)(RightSider);

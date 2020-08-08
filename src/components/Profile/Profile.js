@@ -1,26 +1,113 @@
-import React from "react";
-import { Card, Button, Tabs } from "antd";
+import React, { useState, useEffect } from "react";
+import { Card, Button, Tabs, Form, Input, Modal } from "antd";
 import { EnvironmentOutlined, MonitorOutlined } from "@ant-design/icons";
 import Posts from "../Posts/Posts";
+import { connect } from "react-redux";
+import { editUserDetails } from "../../redux/actions/userActions";
 const { TabPane } = Tabs;
 
-const Profile = () => {
+const Profile = ({ user, UI, editUserDetails }) => {
+  const [visible, setVisible] = useState(false);
+  // const [loading, setLoading] = useState(false);
+
+  // //////
+  const [bio, setBio] = useState("");
+  const [website, setWebsite] = useState("");
+  const [location, setLocation] = useState("");
+
+  const mapUserDetailsToState = (credentials) => {
+    credentials.bio && setBio(credentials.bio);
+    credentials.website && setWebsite(credentials.website);
+    credentials.location && setLocation(credentials.location);
+  };
+  useEffect(() => {
+    mapUserDetailsToState(user.credentials);
+  }, [user.credentials]);
+
+  const showModal = () => {
+    setVisible(true);
+  };
+  const handleOk = () => {
+    console.log("Clicked Ok");
+    const userDetails = {
+      bio,
+      location,
+      website,
+    };
+    editUserDetails(userDetails);
+
+    setTimeout(() => {
+      setVisible(false);
+    }, 2000);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+  };
+  const { credentials } = user;
+  console.log(bio, website, location);
   return (
     <div>
+      <Modal
+        style={{ top: 20 }}
+        visible={visible}
+        onOk={handleOk}
+        confirmLoading={UI.loading}
+        onCancel={handleCancel}
+        footer={[
+          <Button key="back" onClick={handleCancel}>
+            Cancel
+          </Button>,
+          <Button
+            key="submit"
+            type="primary"
+            disabled={UI.loading}
+            onClick={handleOk}
+          >
+            Update
+          </Button>,
+        ]}
+      >
+        <Form>
+          <Form.Item label="Bio" name="bio">
+            <Input
+              placeholder="Add bio"
+              onChange={(e) => setBio(e.target.value)}
+              defaultValue={credentials.bio}
+            />
+          </Form.Item>
+          <Form.Item label="Website" name="website">
+            <Input
+              placeholder="Add website"
+              onChange={(e) => setWebsite(e.target.value)}
+              defaultValue={credentials.website}
+            />
+          </Form.Item>
+          <Form.Item label="location" name="location">
+            <Input
+              placeholder="Add location"
+              onChange={(e) => setLocation(e.target.value)}
+              defaultValue={credentials.location}
+            />
+          </Form.Item>
+        </Form>
+      </Modal>
       <Card className="ml-4 tab__card">
         <div className="row justify-content-center text-center">
           <div className="col-lg-3">
             <img
-              src="https://instagram.fdac18-1.fna.fbcdn.net/v/t51.2885-19/s150x150/75487940_662821564251206_3433074471882194944_n.jpg?_nc_ht=instagram.fdac18-1.fna.fbcdn.net&_nc_ohc=d1nptx6aiwoAX9RknSG&oh=541de13db1a9bbc360949ff02f0cbfc2&oe=5F5797A5"
+              src={credentials.imageUrl}
               alt=""
-              className=" rounded-circle"
+              className="img-fluid rounded-circle"
             />
           </div>
           <div className="col-lg-7 ml-3">
             <div className="user__info">
               <div className="user__name d-flex justify-content-center">
-                <h4 className="mr-2">Abdur Rakib</h4>
-                <Button size="small">Edit</Button>
+                <h4 className="mr-2">{credentials.handle}</h4>
+                <Button onClick={showModal} size="small">
+                  Edit
+                </Button>
               </div>
               <div className="others__info d-flex justify-content-between mx-5 mx-md-4">
                 <p>
@@ -33,19 +120,26 @@ const Profile = () => {
                   <span className="font-weight-bold">256</span> following
                 </p>
               </div>
-              <div className="user__bio " style={{ marginTop: "-15px" }}>
-                I am Rakib.I am from Rajshahi,Bangladeah.Currently i am studying
-              </div>
-              <div className="user__website d-flex align-items-center justify-content-center">
-                <MonitorOutlined />
-                <a className="ml-1" href="abdur-rakib.github.io/portfolio">
-                  abdur-rakib.github.io/portfolio
-                </a>
-              </div>
-              <div className="user__location d-flex align-items-center justify-content-center">
-                <EnvironmentOutlined />
-                <span className="ml-1">Rajshahi, Dhaka</span>
-              </div>
+              {credentials.bio && (
+                <div className="user__bio " style={{ marginTop: "-15px" }}>
+                  {credentials.bio}
+                </div>
+              )}
+
+              {credentials.website && (
+                <div className="user__website d-flex align-items-center justify-content-center">
+                  <MonitorOutlined />
+                  <a className="ml-1" href="abdur-rakib.github.io/portfolio">
+                    {credentials.website}
+                  </a>
+                </div>
+              )}
+              {credentials.location && (
+                <div className="user__location d-flex align-items-center justify-content-center">
+                  <EnvironmentOutlined />
+                  <span className="ml-1">{credentials.location}</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -68,4 +162,15 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    UI: state.UI,
+  };
+};
+
+const mapActionsToProps = {
+  editUserDetails,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(Profile);
