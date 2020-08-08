@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Post from "../Post/Post";
 import { connect } from "react-redux";
 import { getPosts } from "../../redux/actions/dataActions";
+import PostsSkeleton from "../../util/PostsSkeleton";
 
 const Posts = (props) => {
   useEffect(() => {
@@ -9,10 +10,15 @@ const Posts = (props) => {
     // eslint-disable-next-line
   }, []);
   // console.log(props.user);
-  const renderPosts =
-    props.data.posts.length === 0
-      ? null
-      : props.data.posts.map((post) => <Post key={post.postId} post={post} />);
+  const renderPosts = props.data.posts ? (
+    props.data.posts.length !== 0 ? (
+      props.data.posts.map((post) => <Post key={post.postId} post={post} />)
+    ) : (
+      <h5 className="text-center mt-1">No posts to show</h5>
+    )
+  ) : (
+    <PostsSkeleton />
+  );
   return <>{renderPosts}</>;
 };
 const mapStateToProps = (state) => {

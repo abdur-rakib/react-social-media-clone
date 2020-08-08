@@ -7,7 +7,11 @@ const RightSider = (props) => {
   const { handle, imageUrl } = props.credentials;
   return (
     <div className="ml-4 ml-md-2">
-      <Card bordered={false} className="py-3 ">
+      <Card
+        bordered={false}
+        className="py-3 "
+        style={{ minHeight: "200vh", position: "fixed" }}
+      >
         <div className="text-center mb-4">
           <Search />
         </div>

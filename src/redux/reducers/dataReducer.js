@@ -1,7 +1,7 @@
 import { SET_POSTS, CREATE_POST } from "../types";
 
 const initialState = {
-  posts: [],
+  posts: null,
   post: {},
 };
 

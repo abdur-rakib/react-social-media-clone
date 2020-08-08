@@ -7,9 +7,11 @@ import {
 } from "@ant-design/icons";
 import Posts from "../Posts/Posts";
 import { connect } from "react-redux";
-import { editUserDetails } from "../../redux/actions/userActions";
+import { editUserDetails, getUserData } from "../../redux/actions/userActions";
+import store from "../../redux/store";
 
 import moment from "moment";
+import Post from "../Post/Post";
 const { TabPane } = Tabs;
 
 const Profile = ({ user, UI, editUserDetails }) => {
@@ -27,6 +29,7 @@ const Profile = ({ user, UI, editUserDetails }) => {
     credentials.location && setLocation(credentials.location);
   };
   useEffect(() => {
+    store.dispatch(getUserData());
     mapUserDetailsToState(user.credentials);
   }, [user.credentials]);
 
@@ -97,7 +100,7 @@ const Profile = ({ user, UI, editUserDetails }) => {
           </Form.Item>
         </Form>
       </Modal>
-      <Card className="ml-4 tab__card">
+      <Card className="ml-4 tab__card" style={{ minHeight: "100vh" }}>
         <div className="row justify-content-center text-center">
           <div className="col-lg-3 ">
             <div>
@@ -158,7 +161,11 @@ const Profile = ({ user, UI, editUserDetails }) => {
         <div className="mt-3">
           <Tabs defaultActiveKey="1" centered>
             <TabPane tab="Your Posts" key="1">
-              <Posts />
+              {user.posts.length === 0 ? (
+                <h5 className="text-center mt-5">You have no posts</h5>
+              ) : (
+                user.posts.map((post) => <Post key={post.postId} post={post} />)
+              )}
             </TabPane>
             <TabPane tab="Liked Posts" key="2">
               <h5 className="text-center mt-5">You have no liked post</h5>
