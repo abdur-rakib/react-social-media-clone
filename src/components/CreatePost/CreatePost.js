@@ -1,31 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Button, Avatar } from "antd";
+import { connect } from "react-redux";
 
-const CreatePost = () => {
+import { createPost } from "../../redux/actions/dataActions";
+
+const CreatePost = (props) => {
+  const [body, setBody] = useState("");
+  const [errors, setErrors] = useState("");
+
+  const handleSubmit = () => {
+    if (body === "") {
+      setErrors("Write something fool !!!😁");
+      setTimeout(() => {
+        setErrors("");
+      }, 1000);
+    } else {
+      const newPost = { body };
+      props.createPost(newPost);
+      setTimeout(() => {
+        setBody("");
+      }, 1000);
+    }
+  };
   return (
     <Card bordered={false} className="mb-2 ml-4 mr-4 mr-md-0">
       <div className="row d-flex justify-content-center">
         <div className="col-1">
-          <Avatar src="https://instagram.fdac18-1.fna.fbcdn.net/v/t51.2885-19/s150x150/75487940_662821564251206_3433074471882194944_n.jpg?_nc_ht=instagram.fdac18-1.fna.fbcdn.net&_nc_ohc=d1nptx6aiwoAX9RknSG&oh=541de13db1a9bbc360949ff02f0cbfc2&oe=5F5797A5" />
+          <Avatar src={props.user.credentials.imageUrl} />
         </div>
         <div className="col-11">
-          <textarea
-            name=""
-            cols="3"
-            className="form-control post-form"
-          ></textarea>
+          <form action="" onSubmit={handleSubmit}>
+            <textarea
+              required={true}
+              value={body}
+              name=""
+              cols="3"
+              className="form-control post-form d-block"
+              onChange={(e) => setBody(e.target.value)}
+            ></textarea>
+            {errors && <span className="text-danger">{errors}</span>}
+
+            <Button
+              className="px-4 float-right mr-0"
+              shape="round"
+              type="primary"
+              style={{ marginRight: "14px" }}
+              onClick={handleSubmit}
+              disabled={props.UI.loading}
+            >
+              {props.UI.loading === true ? "Posting" : "Post"}
+            </Button>
+          </form>
         </div>
-        <Button
-          className="ml-auto px-4"
-          shape="round"
-          type="primary"
-          style={{ marginRight: "14px" }}
-        >
-          Post
-        </Button>
       </div>
     </Card>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    data: state.data,
+    user: state.user,
+    UI: state.UI,
+  };
+};
 
-export default CreatePost;
+const mapActionsToProps = {
+  createPost,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(CreatePost);
