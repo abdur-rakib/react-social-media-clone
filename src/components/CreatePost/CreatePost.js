@@ -6,6 +6,7 @@ import { createPost } from "../../redux/actions/dataActions";
 
 const CreatePost = (props) => {
   const [body, setBody] = useState("");
+  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState("");
 
   const handleSubmit = () => {
@@ -13,13 +14,15 @@ const CreatePost = (props) => {
       setErrors("Write something fool !!!😁");
       setTimeout(() => {
         setErrors("");
-      }, 1000);
+      }, 2000);
     } else {
+      setLoading(true);
       const newPost = { body };
       props.createPost(newPost);
       setTimeout(() => {
         setBody("");
-      }, 1000);
+        setLoading(false);
+      }, 2000);
     }
   };
   return (
@@ -46,9 +49,9 @@ const CreatePost = (props) => {
               type="primary"
               style={{ marginRight: "14px" }}
               onClick={handleSubmit}
-              disabled={props.UI.loading}
+              disabled={loading}
             >
-              {props.UI.loading === true ? "Posting" : "Post"}
+              {loading === true ? "Posting" : "Post"}
             </Button>
           </form>
         </div>

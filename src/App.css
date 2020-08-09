@@ -40,7 +40,7 @@ body {
   align-items: center;
 }
 .ant-layout-sider-children {
-  background: #fff;
+  background: transparent;
   position: fixed;
   max-width: 200px;
 }
@@ -115,3 +115,13 @@ a:hover {
 /* ---------------------------- */
 /* Right Sider */
 /* ---------------------------- */
+
+/* content */
+
+.ant-badge-count {
+  min-width: 7px !important;
+  height: 14px !important;
+  padding: 0 5px !important;
+  font-size: 8px !important;
+  line-height: 15px !important;
+}

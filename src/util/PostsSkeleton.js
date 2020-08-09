@@ -6,13 +6,13 @@ const PostsSkeleton = () => {
   return (
     <>
       <Card bordered={false} className="mb-2 ml-4 mr-4 mr-md-0">
-        <Skeleton avatar paragraph={{ rows: 2 }} />
+        <Skeleton active avatar paragraph={{ rows: 2 }} />
       </Card>
       <Card bordered={false} className="mb-2 ml-4 mr-4 mr-md-0">
-        <Skeleton avatar paragraph={{ rows: 2 }} />
+        <Skeleton active avatar paragraph={{ rows: 2 }} />
       </Card>
       <Card bordered={false} className="mb-2 ml-4 mr-4 mr-md-0">
-        <Skeleton avatar paragraph={{ rows: 2 }} />
+        <Skeleton active avatar paragraph={{ rows: 2 }} />
       </Card>
     </>
   );

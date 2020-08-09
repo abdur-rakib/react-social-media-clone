@@ -31,7 +31,8 @@ const Profile = ({ user, UI, editUserDetails }) => {
   useEffect(() => {
     store.dispatch(getUserData());
     mapUserDetailsToState(user.credentials);
-  }, [user.credentials]);
+    // eslint-disable-next-line
+  }, []);
 
   const showModal = () => {
     setVisible(true);
@@ -164,7 +165,9 @@ const Profile = ({ user, UI, editUserDetails }) => {
               {user.posts.length === 0 ? (
                 <h5 className="text-center mt-5">You have no posts</h5>
               ) : (
-                user.posts.map((post) => <Post key={post.postId} post={post} />)
+                user.posts.map((post) => (
+                  <Post key={post.createdAt} post={post} />
+                ))
               )}
             </TabPane>
             <TabPane tab="Liked Posts" key="2">
