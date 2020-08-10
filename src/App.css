@@ -125,3 +125,7 @@ a:hover {
   font-size: 8px !important;
   line-height: 15px !important;
 }
+
+.ant-card-meta-detail > div:not(:last-child) {
+  margin-bottom: -5px !important;
+}

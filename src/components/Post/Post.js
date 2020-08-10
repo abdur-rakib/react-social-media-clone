@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, Popover, Divider, Button, Avatar, Badge } from "antd";
 import {
   HeartOutlined,
@@ -27,6 +27,7 @@ const Post = ({
   likePost,
   unlikePost,
 }) => {
+  useEffect(() => {}, [likeCount]);
   const likedPost = () => {
     if (
       user.likes.length !== 0 &&
@@ -42,7 +43,6 @@ const Post = ({
   // const unlikePost = () => {
   //   unlikePost(postId);
   // };
-  console.log(likedPost());
   const content = (
     <div className="d-flex flex-column">
       <Button size="small" type="text">

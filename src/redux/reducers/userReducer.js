@@ -29,6 +29,10 @@ export default function (state = initialState, action) {
         ...action.payload,
       };
     case LIKE_POST:
+      let index_like = state.posts.findIndex(
+        (post) => post.postId === action.payload.postId
+      );
+      state.posts[index_like] = action.payload;
       return {
         ...state,
         likes: [
@@ -40,6 +44,10 @@ export default function (state = initialState, action) {
         ],
       };
     case UNLIKE_POST:
+      let index_unlike = state.posts.findIndex(
+        (post) => post.postId === action.payload.postId
+      );
+      state.posts[index_unlike] = action.payload;
       return {
         ...state,
         likes: state.likes.filter(
