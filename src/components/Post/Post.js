@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Popover, Divider, Button, Avatar, Badge } from "antd";
 import {
   HeartOutlined,
@@ -11,27 +11,17 @@ import moment from "moment";
 import { connect } from "react-redux";
 
 import { likePost, unlikePost } from "../../redux/actions/dataActions";
+import Modal from "antd/lib/modal/Modal";
+import PostDetails from "../PostDetails/PostDetails";
 const { Meta } = Card;
 
-const Post = ({
-  post: {
-    userHandle,
-    likeCount,
-    commentCount,
-    body,
-    createdAt,
-    userImage,
-    postId,
-  },
-  user,
-  likePost,
-  unlikePost,
-}) => {
-  useEffect(() => {}, [likeCount]);
+const Post = ({ post, user, likePost, unlikePost }) => {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {}, [post.likeCount]);
   const likedPost = () => {
     if (
       user.likes.length !== 0 &&
-      user.likes.find((like) => like.postId === postId)
+      user.likes.find((like) => like.postId === post.postId)
     )
       return true;
     else return false;
@@ -57,51 +47,66 @@ const Post = ({
     </div>
   );
   return (
-    <Card bordered={false} className="mb-2 ml-4 mr-4 mr-md-0">
-      <Meta
-        avatar={<Avatar src={userImage} />}
-        title={userHandle}
-        description={body}
-      />
-      <small className="ml-5 mt-4 font-italic">
-        - Posted
-        <span className="ml-1">
-          {moment(createdAt).startOf("minutes").fromNow()}
-        </span>
-      </small>
-      <Divider />
-      <div className="actions">
-        <div className="d-flex">
-          {likedPost() === true ? (
-            <Badge count={likeCount}>
-              <HeartFilled
-                disabled={true}
-                style={{ fontSize: "20px" }}
-                onClick={() => unlikePost(postId)}
-              />
-            </Badge>
-          ) : (
-            <Badge showZero count={likeCount}>
-              <HeartOutlined
-                style={{ fontSize: "20px" }}
-                onClick={() => likePost(postId)}
-              />
-            </Badge>
-          )}
-        </div>
+    <>
+      <Modal
+        style={{ top: 20 }}
+        visible={visible}
+        onCancel={() => setVisible(false)}
+        className="post__modal"
+      >
+        <PostDetails post={post} />
+      </Modal>
+      <Card bordered={false} className="mb-2 ml-4 mr-4 mr-md-0">
+        <Meta
+          avatar={<Avatar src={post.userImage} />}
+          title={post.userHandle}
+          description={post.body}
+        />
+        <small className="ml-5 mt-4 font-italic">
+          - Posted
+          <span className="ml-1">
+            {moment(post.createdAt).startOf("minutes").fromNow()}
+          </span>
+        </small>
+        <Divider />
+        <div className="actions">
+          <div className="d-flex">
+            {likedPost() === true ? (
+              <Badge count={post.likeCount}>
+                <HeartFilled
+                  disabled={true}
+                  style={{ fontSize: "20px" }}
+                  onClick={() => unlikePost(post.postId)}
+                />
+              </Badge>
+            ) : (
+              <Badge showZero count={post.likeCount}>
+                <HeartOutlined
+                  style={{ fontSize: "20px" }}
+                  onClick={() => likePost(post.postId)}
+                />
+              </Badge>
+            )}
+          </div>
 
-        <div className="d-flex">
-          <Badge showZero count={commentCount}>
-            <MessageOutlined style={{ fontSize: "20px" }} />
-          </Badge>
-        </div>
-        <ShareAltOutlined style={{ fontSize: "20px" }} />
+          <div
+            className="d-flex"
+            onClick={() => {
+              setVisible(true);
+            }}
+          >
+            <Badge showZero count={post.commentCount}>
+              <MessageOutlined style={{ fontSize: "20px" }} />
+            </Badge>
+          </div>
+          <ShareAltOutlined style={{ fontSize: "20px" }} />
 
-        <Popover content={content} trigger="hover">
-          <MoreOutlined style={{ fontSize: "20px" }} />
-        </Popover>
-      </div>
-    </Card>
+          <Popover content={content} trigger="hover">
+            <MoreOutlined style={{ fontSize: "20px" }} />
+          </Popover>
+        </div>
+      </Card>
+    </>
   );
 };
 

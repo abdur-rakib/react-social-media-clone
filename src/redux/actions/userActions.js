@@ -6,6 +6,7 @@ import {
   SET_UNAUTHENTICATED,
   SET_ERRORS,
   SET_AUTHENTICATED,
+  CHANGE_IMAGE,
 } from "../types";
 import { message } from "antd";
 
@@ -79,4 +80,9 @@ const setAuthorizationHeader = (token) => {
   const FBIdToken = `Bearer ${token}`;
   localStorage.setItem("FBIdToken", FBIdToken);
   axios.defaults.headers.common["Authorization"] = FBIdToken;
+};
+
+export const uploadImage = (imageUrl) => (dispatch) => {
+  console.log("object");
+  dispatch({ type: CHANGE_IMAGE, payload: imageUrl });
 };

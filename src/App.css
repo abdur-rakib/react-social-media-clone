@@ -129,3 +129,30 @@ a:hover {
 .ant-card-meta-detail > div:not(:last-child) {
   margin-bottom: -5px !important;
 }
+
+.post__modal .ant-modal-footer {
+  display: none !important;
+}
+/* .ant-modal-body {
+  position: relative;
+}
+.ant-modal-body .comment-form {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  width: 406px !important;
+  background-color: white;
+  margin-bottom: 41px;
+} */
+.ant-modal-body {
+  position: relative;
+}
+
+.comment-form {
+  position: sticky;
+  bottom: 0px;
+  padding-bottom: 2px;
+  display: block;
+  background-color: white;
+  height: 50px;
+}

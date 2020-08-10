@@ -4,6 +4,7 @@ import {
   SET_USER,
   LIKE_POST,
   UNLIKE_POST,
+  CHANGE_IMAGE,
 } from "../types";
 
 const initialState = {
@@ -53,6 +54,11 @@ export default function (state = initialState, action) {
         likes: state.likes.filter(
           (like) => like.postId !== action.payload.postId
         ),
+      };
+    case CHANGE_IMAGE:
+      return {
+        ...state,
+        credentials: { ...state.credentials, imageUrl: action.payload },
       };
     default:
       return state;

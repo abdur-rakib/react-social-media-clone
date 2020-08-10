@@ -2,6 +2,7 @@ import { Upload, message } from "antd";
 import React, { Component } from "react";
 // import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
+import { uploadImage } from "../../redux/actions/userActions";
 
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -32,6 +33,8 @@ class UploadImage extends Component {
       return;
     }
     if (info.file.status === "done") {
+      // this.props.uploadImage(info.file);
+
       // Get this url from response in real world.
       getBase64(info.file.originFileObj, (imageUrl) =>
         this.setState({
@@ -39,6 +42,7 @@ class UploadImage extends Component {
           loading: false,
         })
       );
+      this.props.uploadImage(this.state.imageUrl);
     }
   };
 
@@ -74,6 +78,6 @@ const mapStateToProps = (state) => {
   return {};
 };
 
-const mapActionsToProps = {};
+const mapActionsToProps = { uploadImage };
 
 export default connect(mapStateToProps, mapActionsToProps)(UploadImage);
