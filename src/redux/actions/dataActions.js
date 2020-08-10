@@ -50,7 +50,6 @@ export const likePost = (postId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 export const unlikePost = (postId) => (dispatch) => {
-  console.log("unliked");
   axios
     .get(`/post/${postId}/unlike`)
     .then((res) => {

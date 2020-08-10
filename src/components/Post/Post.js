@@ -42,6 +42,7 @@ const Post = ({
   // const unlikePost = () => {
   //   unlikePost(postId);
   // };
+  console.log(likedPost());
   const content = (
     <div className="d-flex flex-column">
       <Button size="small" type="text">
@@ -74,6 +75,7 @@ const Post = ({
           {likedPost() === true ? (
             <Badge count={likeCount}>
               <HeartFilled
+                disabled={true}
                 style={{ fontSize: "20px" }}
                 onClick={() => unlikePost(postId)}
               />

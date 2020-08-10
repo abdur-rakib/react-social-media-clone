@@ -14,7 +14,7 @@ import moment from "moment";
 import Post from "../Post/Post";
 const { TabPane } = Tabs;
 
-const Profile = ({ user, UI, editUserDetails }) => {
+const Profile = ({ user, UI, editUserDetails, data }, history) => {
   const [visible, setVisible] = useState(false);
   // const [loading, setLoading] = useState(false);
 
@@ -171,7 +171,18 @@ const Profile = ({ user, UI, editUserDetails }) => {
               )}
             </TabPane>
             <TabPane tab="Liked Posts" key="2">
-              <h5 className="text-center mt-5">You have no liked post</h5>
+              {user.likes.length === 0 ? (
+                <h5 className="text-center mt-5">You have no liked post</h5>
+              ) : (
+                user.likes.map((likePost) => (
+                  <Post
+                    key={likePost.postId}
+                    post={data.posts.find(
+                      (post) => post.postId === likePost.postId
+                    )}
+                  />
+                ))
+              )}
             </TabPane>
             <TabPane tab="Saved Posts" key="3">
               <Posts />
@@ -187,6 +198,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     UI: state.UI,
+    data: state.data,
   };
 };
 
