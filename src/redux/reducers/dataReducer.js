@@ -30,13 +30,26 @@ export default function (state = initialState, action) {
         (post) => post.postId === action.payload.postId
       );
       state.posts[index] = action.payload;
+      state.post = { ...state.post, likeCount: action.payload.likeCount };
       return { ...state };
     case SET_POST:
       return {
         ...state,
         post: action.payload,
       };
+
     case SUBMIT_COMMENT:
+      let index_comment = state.posts.findIndex(
+        (post) => post.postId === action.payload.postId
+      );
+      state.posts[index_comment] = {
+        ...state.posts[index_comment],
+        commentCount: state.posts[index_comment].commentCount + 1,
+      };
+      state.post = {
+        ...state.post,
+        commentCount: state.posts[index_comment].commentCount,
+      };
       return {
         ...state,
         post: {

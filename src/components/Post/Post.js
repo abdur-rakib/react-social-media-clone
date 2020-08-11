@@ -65,7 +65,7 @@ const Post = ({ post, user, likePost, unlikePost, getPost }) => {
         <small className="ml-5 mt-4 font-italic">
           - Posted
           <span className="ml-1">
-            {moment(post.createdAt).startOf("minutes").fromNow()}
+            {moment(post.createdAt).startOf("seconds").fromNow()}
           </span>
         </small>
         <Divider />

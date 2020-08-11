@@ -156,3 +156,7 @@ a:hover {
   background-color: white;
   height: 50px;
 }
+
+.ant-comment-inner {
+  padding: 5px 0 !important;
+}
