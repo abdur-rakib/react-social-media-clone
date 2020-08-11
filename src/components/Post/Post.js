@@ -10,12 +10,12 @@ import {
 import moment from "moment";
 import { connect } from "react-redux";
 
-import { likePost, unlikePost } from "../../redux/actions/dataActions";
+import { likePost, unlikePost, getPost } from "../../redux/actions/dataActions";
 import Modal from "antd/lib/modal/Modal";
 import PostDetails from "../PostDetails/PostDetails";
 const { Meta } = Card;
 
-const Post = ({ post, user, likePost, unlikePost }) => {
+const Post = ({ post, user, likePost, unlikePost, getPost }) => {
   const [visible, setVisible] = useState(false);
   useEffect(() => {}, [post.likeCount]);
   const likedPost = () => {
@@ -54,7 +54,7 @@ const Post = ({ post, user, likePost, unlikePost }) => {
         onCancel={() => setVisible(false)}
         className="post__modal"
       >
-        <PostDetails post={post} />
+        <PostDetails />
       </Modal>
       <Card bordered={false} className="mb-2 ml-4 mr-4 mr-md-0">
         <Meta
@@ -93,6 +93,7 @@ const Post = ({ post, user, likePost, unlikePost }) => {
             className="d-flex"
             onClick={() => {
               setVisible(true);
+              getPost(post.postId);
             }}
           >
             <Badge showZero count={post.commentCount}>
@@ -119,6 +120,7 @@ const mapStateToProps = (state) => {
 const mapActionsToProps = {
   likePost,
   unlikePost,
+  getPost,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Post);
