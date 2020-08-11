@@ -19,7 +19,7 @@ const Home = () => {
         <LeftSider />
         <Layout>
           <div className="row">
-            <div className="col-md-7 p-0">
+            <div className="col-md-7 p-0" style={{ minHeight: "100vh" }}>
               <Route exact path="/">
                 <Title title="Home" />
                 <>

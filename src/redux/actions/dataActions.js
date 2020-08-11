@@ -8,6 +8,7 @@ import {
   UNLIKE_POST,
   SUBMIT_COMMENT,
   SET_POST,
+  DELETE_POST,
 } from "../types";
 import axios from "axios";
 import { message } from "antd";
@@ -85,4 +86,14 @@ export const submitComment = (postId, commentData) => (dispatch) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+export const deletePost = (postId) => (dispatch) => {
+  axios
+    .delete(`/post/${postId}`)
+    .then(() => {
+      dispatch({ type: DELETE_POST, payload: postId });
+      message.success("Post Deleted successfully");
+    })
+    .catch((err) => console.log(err));
 };

@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Card, Popover, Divider, Button, Avatar, Badge } from "antd";
+import {
+  Card,
+  Popover,
+  Divider,
+  Button,
+  Avatar,
+  Badge,
+  Popconfirm,
+} from "antd";
 import {
   HeartOutlined,
   MessageOutlined,
@@ -10,12 +18,17 @@ import {
 import moment from "moment";
 import { connect } from "react-redux";
 
-import { likePost, unlikePost, getPost } from "../../redux/actions/dataActions";
+import {
+  likePost,
+  unlikePost,
+  getPost,
+  deletePost,
+} from "../../redux/actions/dataActions";
 import Modal from "antd/lib/modal/Modal";
 import PostDetails from "../PostDetails/PostDetails";
 const { Meta } = Card;
 
-const Post = ({ post, user, likePost, unlikePost, getPost }) => {
+const Post = ({ post, user, likePost, unlikePost, getPost, deletePost }) => {
   const [visible, setVisible] = useState(false);
   useEffect(() => {}, [post.likeCount]);
   const likedPost = () => {
@@ -27,20 +40,30 @@ const Post = ({ post, user, likePost, unlikePost, getPost }) => {
     else return false;
   };
 
-  // const likePost = () => {
-  //   likePost(postId);
-  // };
-  // const unlikePost = () => {
-  //   unlikePost(postId);
-  // };
+  function confirm() {
+    deletePost(post.postId);
+  }
   const content = (
     <div className="d-flex flex-column">
-      <Button size="small" type="text">
-        Edit
-      </Button>
-      <Button size="small" type="text">
-        Delete
-      </Button>
+      {user.credentials.handle === post.userHandle ? (
+        <>
+          <Button size="small" type="text">
+            Edit
+          </Button>
+          <Button size="small" type="text">
+            <Popconfirm
+              title="Are you sure to delete this post?"
+              onConfirm={confirm}
+              okText="Yes"
+              cancelText="No"
+              placement="bottom"
+            >
+              <span style={{ cursor: "pointer" }}>Delete</span>
+            </Popconfirm>
+          </Button>
+        </>
+      ) : null}
+
       <Button size="small" type="text">
         Save
       </Button>
@@ -121,6 +144,7 @@ const mapActionsToProps = {
   likePost,
   unlikePost,
   getPost,
+  deletePost,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Post);
