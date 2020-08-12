@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Card,
   Popover,
@@ -30,7 +30,6 @@ const { Meta } = Card;
 
 const Post = ({ post, user, likePost, unlikePost, getPost, deletePost }) => {
   const [visible, setVisible] = useState(false);
-  useEffect(() => {}, [post.likeCount]);
   const likedPost = () => {
     if (
       user.likes.length !== 0 &&
@@ -45,7 +44,7 @@ const Post = ({ post, user, likePost, unlikePost, getPost, deletePost }) => {
   }
   const content = (
     <div className="d-flex flex-column">
-      {user.credentials.handle === post.userHandle ? (
+      {user && user.credentials.handle === post.userHandle ? (
         <>
           <Button size="small" type="text">
             Edit

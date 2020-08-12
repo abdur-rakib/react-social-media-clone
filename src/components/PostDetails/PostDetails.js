@@ -21,6 +21,7 @@ const PostDetails = (props) => {
     } else {
       const newComment = { body: comment };
       props.submitComment(props.post.postId, newComment);
+      setLoading(true);
       setTimeout(() => {
         setComment("");
         setLoading(false);

@@ -6,9 +6,26 @@ import {
   SET_UNAUTHENTICATED,
   SET_ERRORS,
   SET_AUTHENTICATED,
-  CHANGE_IMAGE,
 } from "../types";
 import { message } from "antd";
+
+import firebase from "firebase/app";
+import "firebase/storage";
+import "firebase/firestore";
+
+const config = {
+  apiKey: "AIzaSyDw6YTwGIpB98XJlIijYL7Id3drBBzxn1I",
+  authDomain: "react-mukh-boi-project.firebaseapp.com",
+  databaseURL: "https://react-mukh-boi-project.firebaseio.com",
+  projectId: "react-mukh-boi-project",
+  storageBucket: "react-mukh-boi-project.appspot.com",
+  messagingSenderId: "168073080597",
+  appId: "1:168073080597:web:9f280162311bef3a2d831c",
+};
+
+firebase.initializeApp(config);
+const storage = firebase.storage();
+const db = firebase.firestore();
 
 export const loginUser = (userData, history) => (dispatch) => {
   dispatch({ type: SET_LOADING });
@@ -66,7 +83,7 @@ export const logoutUser = () => (dispatch) => {
 
 // edit user details
 export const editUserDetails = (userDetails) => (dispatch) => {
-  dispatch({ type: SET_LOADING });
+  // dispatch({ type: SET_LOADING });
   axios
     .post("/user", userDetails)
     .then(() => {
@@ -82,7 +99,23 @@ const setAuthorizationHeader = (token) => {
   axios.defaults.headers.common["Authorization"] = FBIdToken;
 };
 
-export const uploadImage = (imageUrl) => (dispatch) => {
-  console.log("object");
-  dispatch({ type: CHANGE_IMAGE, payload: imageUrl });
+export const uploadImage = (file, handle) => (dispatch) => {
+  dispatch({ type: SET_LOADING });
+  const storageRef = storage.ref(file.name);
+  const docRef = db.doc(`users/${handle}`);
+  storageRef.put(file).on(
+    "state_changed",
+    (snapshot) => {
+      dispatch(getUserData());
+    },
+    (err) => {},
+    () => {
+      storageRef.getDownloadURL().then((url) => {
+        dispatch(getUserData());
+        docRef.update({ imageUrl: url });
+        message.success("Profile Picture Changed");
+        dispatch({ type: CLEAR_LOADING });
+      });
+    }
+  );
 };
