@@ -1,26 +1,34 @@
 import React from "react";
 import { Card, Alert } from "antd";
-import { useEffect } from "react";
 import { connect } from "react-redux";
 
 import Modal from "antd/lib/modal/Modal";
 import { useState } from "react";
 import PostDetails from "../PostDetails/PostDetails";
 import { getPost } from "../../redux/actions/dataActions";
-import { markNotificationsRead } from "../../redux/actions/userActions";
+import {
+  markNotificationsRead,
+  getUserData,
+} from "../../redux/actions/userActions";
 import moment from "moment";
+import { useEffect } from "react";
+import store from "../../redux/store";
 const Notifications = (props) => {
   const [visible, setVisible] = useState(false);
+
+  const readNotification = (postId, notId) => {
+    setVisible(true);
+    props.getPost(postId);
+    props.markNotificationsRead([notId]);
+  };
   useEffect(() => {
-    console.log(props.user.notifications);
-    // eslint-disable-next-line
+    store.dispatch(getUserData());
   }, []);
 
-  const readNotification = (id) => {
-    setVisible(true);
-    props.getPost(id);
-    props.markNotificationsRead([id]);
-  };
+  const unReadNotifications = props.user.notifications?.filter(
+    (not) => not.read === false
+  );
+  console.log(unReadNotifications);
   return (
     <div>
       <Modal
@@ -32,9 +40,11 @@ const Notifications = (props) => {
         <PostDetails />
       </Modal>
       <Card className="mb-2 ml-4 mr-4 mr-md-0" style={{ minHeight: "100vh" }}>
-        {props.user.notifications?.map((notification, index) => (
+        {unReadNotifications?.map((notification, index) => (
           <Alert
-            onClick={() => readNotification(notification.postId)}
+            onClick={() =>
+              readNotification(notification.postId, notification.id)
+            }
             key={index}
             message={`${notification.sender} ${
               notification.type === "like" ? "liked" : "commented on"
@@ -56,5 +66,6 @@ const mapStateToProps = (state) => {
 const mapActionsToProps = {
   getPost,
   markNotificationsRead,
+  getUserData,
 };
 export default connect(mapStateToProps, mapActionsToProps)(Notifications);

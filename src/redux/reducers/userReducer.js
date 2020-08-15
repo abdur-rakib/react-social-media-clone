@@ -7,6 +7,7 @@ import {
   UNLIKE_POST,
   CHANGE_IMAGE,
   MARK_NOTIFICATIONS_READ,
+  SET_OTHER_USER,
 } from "../types";
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   posts: [],
   notifications: [],
   users: null,
+  otherUser: null,
 };
 
 export default function (state = initialState, action) {
@@ -72,6 +74,11 @@ export default function (state = initialState, action) {
       state.notifications.forEach((not) => (not.read = true));
       return {
         ...state,
+      };
+    case SET_OTHER_USER:
+      return {
+        ...state,
+        otherUser: action.payload,
       };
     default:
       return state;

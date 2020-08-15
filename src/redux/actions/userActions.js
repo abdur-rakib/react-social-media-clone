@@ -8,6 +8,7 @@ import {
   SET_AUTHENTICATED,
   SET_USERS,
   MARK_NOTIFICATIONS_READ,
+  SET_OTHER_USER,
 } from "../types";
 import { message } from "antd";
 
@@ -138,11 +139,23 @@ export const allUsers = (currentUser) => (dispatch) => {
 };
 
 export const markNotificationsRead = (notificationIds) => (dispatch) => {
-  console.log(notificationIds);
   axios
     .post("/notifications", notificationIds)
     .then((res) => {
+      console.log(res);
       dispatch({ type: MARK_NOTIFICATIONS_READ });
+    })
+    .catch((err) => console.log(err));
+};
+
+// get other user details
+export const getOtherUser = (handle) => (dispatch) => {
+  dispatch({ type: SET_LOADING });
+  axios
+    .get(`/user/${handle}`)
+    .then((res) => {
+      dispatch({ type: SET_OTHER_USER, payload: res.data });
+      dispatch({ type: CLEAR_LOADING });
     })
     .catch((err) => console.log(err));
 };

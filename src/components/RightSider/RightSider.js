@@ -4,26 +4,43 @@ import Search from "../Search/Search";
 import { connect } from "react-redux";
 import Avatar from "antd/lib/avatar/avatar";
 import { useEffect } from "react";
-import { allUsers } from "../../redux/actions/userActions";
+import { allUsers, getOtherUser } from "../../redux/actions/userActions";
+import Modal from "antd/lib/modal/Modal";
+import { useState } from "react";
+import OtherUser from "../OtherUser/OtherUser";
 
 const RightSider = (props) => {
   const { handle, imageUrl } = props.credentials;
+
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     if (handle) {
       props.allUsers(handle);
     }
     // eslint-disable-next-line
   }, [handle]);
+  const getUserDetails = (handle) => {
+    props.getOtherUser(handle);
+  };
 
   const users = props.user.users ? (
     props.user.users.map((user) => (
       <div
         key={user.handle}
+        style={{ cursor: "pointer" }}
         className="user mx-4 mb-2 d-flex align-items-center justify-content-between"
       >
         <div className="d-flex align-items-center">
           <Avatar src={user.imageUrl} />
-          <span className="user__name ml-1">{user.handle}</span>
+          <span
+            onClick={() => {
+              getUserDetails(user.handle);
+              setVisible(true);
+            }}
+            className="user__name ml-1"
+          >
+            {user.handle}
+          </span>
         </div>
         <div className="user__follow">
           <Button size="small">Follow</Button>
@@ -39,6 +56,14 @@ const RightSider = (props) => {
   );
   return (
     <div className="ml-4 ml-md-2">
+      <Modal
+        style={{ top: 20 }}
+        visible={visible}
+        onCancel={() => setVisible(false)}
+        className="post__modal"
+      >
+        <OtherUser />
+      </Modal>
       <Card
         bordered={false}
         className="py-3 "
@@ -89,6 +114,7 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = {
   allUsers,
+  getOtherUser,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(RightSider);
