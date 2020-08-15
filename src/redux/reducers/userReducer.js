@@ -2,6 +2,7 @@ import {
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
   SET_USER,
+  SET_USERS,
   LIKE_POST,
   UNLIKE_POST,
   CHANGE_IMAGE,
@@ -13,6 +14,7 @@ const initialState = {
   likes: [],
   posts: [],
   notifications: [],
+  users: null,
 };
 
 export default function (state = initialState, action) {
@@ -59,6 +61,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         credentials: { ...state.credentials, imageUrl: action.payload },
+      };
+    case SET_USERS:
+      return {
+        ...state,
+        users: action.payload,
       };
     default:
       return state;

@@ -127,7 +127,7 @@ a:hover {
 }
 
 .ant-card-meta-detail > div:not(:last-child) {
-  margin-bottom: -5px !important;
+  margin-bottom: -2px !important;
 }
 
 .post__modal .ant-modal-footer {
@@ -159,4 +159,11 @@ a:hover {
 
 .ant-comment-inner {
   padding: 5px 0 !important;
+}
+
+.ant-card-meta-description {
+  color: black;
+}
+.ant-card-meta-title {
+  font-weight: bold;
 }

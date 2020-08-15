@@ -6,6 +6,7 @@ import {
   SET_UNAUTHENTICATED,
   SET_ERRORS,
   SET_AUTHENTICATED,
+  SET_USERS,
 } from "../types";
 import { message } from "antd";
 
@@ -119,4 +120,19 @@ export const uploadImage = (file, handle) => (dispatch) => {
       });
     }
   );
+};
+
+export const allUsers = (currentUser) => (dispatch) => {
+  console.log(currentUser);
+  db.collection("users")
+    .orderBy("createdAt", "desc")
+    .onSnapshot((snapshot) => {
+      let users = [];
+      snapshot.docs.forEach((doc) => {
+        if (doc.data().handle !== currentUser) {
+          users.push(doc.data());
+        }
+      });
+      dispatch({ type: SET_USERS, payload: users });
+    });
 };

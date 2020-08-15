@@ -5,7 +5,7 @@ import {
   MonitorOutlined,
   CalendarOutlined,
 } from "@ant-design/icons";
-import Posts from "../Posts/Posts";
+// import Posts from "../Posts/Posts";
 import { connect } from "react-redux";
 import { editUserDetails, getUserData } from "../../redux/actions/userActions";
 import { getPosts } from "../../redux/actions/dataActions";
@@ -202,7 +202,13 @@ const Profile = ({ user, UI, editUserDetails, getPosts, data }, history) => {
               )}
             </TabPane>
             <TabPane tab="Saved Posts" key="3">
-              <Posts />
+              <h1 className="display-4 text-center">
+                Currently on progress{" "}
+                <span aria-label="img" role="img">
+                  😁
+                </span>
+                ....
+              </h1>
             </TabPane>
           </Tabs>
         </div>

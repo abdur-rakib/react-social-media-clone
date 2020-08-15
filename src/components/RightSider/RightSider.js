@@ -1,11 +1,42 @@
 import React from "react";
-import { Card, Skeleton } from "antd";
-import Users from "../Users/Users";
+import { Card, Skeleton, Button } from "antd";
 import Search from "../Search/Search";
 import { connect } from "react-redux";
 import Avatar from "antd/lib/avatar/avatar";
+import { useEffect } from "react";
+import { allUsers } from "../../redux/actions/userActions";
+
 const RightSider = (props) => {
   const { handle, imageUrl } = props.credentials;
+  useEffect(() => {
+    if (handle) {
+      props.allUsers(handle);
+    }
+    // eslint-disable-next-line
+  }, [handle]);
+
+  const users = props.user.users ? (
+    props.user.users.map((user) => (
+      <div
+        key={user.handle}
+        className="user mx-4 mb-2 d-flex align-items-center justify-content-between"
+      >
+        <div className="d-flex align-items-center">
+          <Avatar src={user.imageUrl} />
+          <span className="user__name ml-1">{user.handle}</span>
+        </div>
+        <div className="user__follow">
+          <Button size="small">Follow</Button>
+        </div>
+      </div>
+    ))
+  ) : (
+    <>
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+    </>
+  );
   return (
     <div className="ml-4 ml-md-2">
       <Card
@@ -39,7 +70,12 @@ const RightSider = (props) => {
           )}
         </div>
 
-        <Users />
+        <div className="users">
+          <h6 className="mt-2 mb-3 font-weight-light text-center mt-3">
+            People you may know
+          </h6>
+          {users}
+        </div>
       </Card>
     </div>
   );
@@ -47,7 +83,12 @@ const RightSider = (props) => {
 const mapStateToProps = (state) => {
   return {
     credentials: state.user.credentials,
+    user: state.user,
   };
 };
 
-export default connect(mapStateToProps)(RightSider);
+const mapActionsToProps = {
+  allUsers,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(RightSider);
