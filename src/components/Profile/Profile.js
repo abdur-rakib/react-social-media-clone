@@ -8,6 +8,7 @@ import {
 import Posts from "../Posts/Posts";
 import { connect } from "react-redux";
 import { editUserDetails, getUserData } from "../../redux/actions/userActions";
+import { getPosts } from "../../redux/actions/dataActions";
 import store from "../../redux/store";
 
 import moment from "moment";
@@ -16,7 +17,7 @@ import UploadImage from "../UploadImage/UploadImage";
 import PostsSkeleton from "../../util/PostsSkeleton";
 const { TabPane } = Tabs;
 
-const Profile = ({ user, UI, editUserDetails, data }, history) => {
+const Profile = ({ user, UI, editUserDetails, getPosts, data }, history) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -32,6 +33,7 @@ const Profile = ({ user, UI, editUserDetails, data }, history) => {
   };
   useEffect(() => {
     store.dispatch(getUserData());
+    getPosts();
     mapUserDetailsToState(user.credentials);
     // eslint-disable-next-line
   }, []);
@@ -215,6 +217,7 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = {
   editUserDetails,
+  getPosts,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Profile);

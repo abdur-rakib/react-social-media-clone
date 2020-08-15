@@ -19,10 +19,9 @@ const Login = (props) => {
 
   useEffect(() => {
     if (props.user.authenticated) {
-      props.history.push("/");
+      // props.history.push("/");
     }
   }, [props.user.authenticated, props.history]);
-
   return (
     <div className="row">
       <div className="col-sm-8 col-md-6 mx-auto p-4">

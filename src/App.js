@@ -18,23 +18,23 @@ import AuthRoute from "./util/AuthRoute";
 axios.defaults.baseURL =
   "https://cors-anywhere.herokuapp.com/https://us-central1-react-mukh-boi-project.cloudfunctions.net/api";
 
-const token = localStorage.FBIdToken;
-if (token) {
-  const decodedToken = JwtDecode(token);
-  if (decodedToken.exp * 1000 < Date.now()) {
-    store.dispatch(logoutUser());
-    window.location.href = "/login";
-  } else {
-    store.dispatch({ type: SET_AUTHENTICATED });
-    axios.defaults.headers.common["Authorization"] = token;
-    store.dispatch(getUserData());
-  }
-}
-
 const App = () => {
+  const token = localStorage.FBIdToken;
+  if (token) {
+    const decodedToken = JwtDecode(token);
+    if (decodedToken.exp * 1000 < Date.now()) {
+      store.dispatch(logoutUser());
+      window.location.href = "/login";
+    } else {
+      store.dispatch({ type: SET_AUTHENTICATED });
+      axios.defaults.headers.common["Authorization"] = token;
+      store.dispatch(getUserData());
+    }
+  }
   return (
     <div className="App">
       <BrowserRouter>
+        {/* {!authenticated ? <Login /> : <Home />} */}
         <Switch>
           <AuthRoute exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
