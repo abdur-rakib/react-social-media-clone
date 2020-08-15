@@ -6,6 +6,7 @@ import {
   HomeOutlined,
   UserOutlined,
   MailOutlined,
+  AreaChartOutlined,
 } from "@ant-design/icons";
 import { Menu, Layout } from "antd";
 import { Link } from "react-router-dom";
@@ -30,7 +31,7 @@ const LeftSider = () => {
         <Menu.Item key="1" icon={<HomeOutlined />}>
           <Link to="/">Home</Link>
         </Menu.Item>
-        <Menu.Item key="2" icon={<NotificationOutlined />}>
+        <Menu.Item key="2" icon={<AreaChartOutlined />}>
           <Link to="/explore">Explore</Link>
         </Menu.Item>
         <Menu.Item key="3" icon={<NotificationOutlined />}>

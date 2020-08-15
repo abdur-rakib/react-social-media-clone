@@ -3,6 +3,7 @@ export const SET_UNAUTHENTICATED = "SET_UNAUTHENTICATED";
 export const SET_USER = "SET_USER";
 export const CHANGE_IMAGE = "CHANGE_IMAGE";
 export const SET_USERS = "SET_USERS";
+export const MARK_NOTIFICATIONS_READ = "MARK_NOTIFICATIONS_READ";
 
 // UI Reducer
 export const SET_LOADING = "SET_LOADING";

@@ -7,6 +7,7 @@ import {
   SET_ERRORS,
   SET_AUTHENTICATED,
   SET_USERS,
+  MARK_NOTIFICATIONS_READ,
 } from "../types";
 import { message } from "antd";
 
@@ -123,7 +124,6 @@ export const uploadImage = (file, handle) => (dispatch) => {
 };
 
 export const allUsers = (currentUser) => (dispatch) => {
-  console.log(currentUser);
   db.collection("users")
     .orderBy("createdAt", "desc")
     .onSnapshot((snapshot) => {
@@ -135,4 +135,14 @@ export const allUsers = (currentUser) => (dispatch) => {
       });
       dispatch({ type: SET_USERS, payload: users });
     });
+};
+
+export const markNotificationsRead = (notificationIds) => (dispatch) => {
+  console.log(notificationIds);
+  axios
+    .post("/notifications", notificationIds)
+    .then((res) => {
+      dispatch({ type: MARK_NOTIFICATIONS_READ });
+    })
+    .catch((err) => console.log(err));
 };

@@ -6,6 +6,7 @@ import {
   LIKE_POST,
   UNLIKE_POST,
   CHANGE_IMAGE,
+  MARK_NOTIFICATIONS_READ,
 } from "../types";
 
 const initialState = {
@@ -66,6 +67,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         users: action.payload,
+      };
+    case MARK_NOTIFICATIONS_READ:
+      state.notifications.forEach((not) => (not.read = true));
+      return {
+        ...state,
       };
     default:
       return state;

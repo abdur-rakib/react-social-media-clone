@@ -167,3 +167,9 @@ a:hover {
 .ant-card-meta-title {
   font-weight: bold;
 }
+
+/* Alert */
+.ant-alert {
+  margin-bottom: 5px;
+  cursor: pointer;
+}
