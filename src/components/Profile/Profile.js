@@ -61,6 +61,12 @@ const Profile = ({ user, UI, editUserDetails, getPosts, data }, history) => {
     setVisible(false);
   };
   const { credentials } = user;
+
+  const initialValues = {
+    bio,
+    website,
+    location,
+  };
   const renderProfile = credentials.imageUrl ? (
     <div>
       {/* {user} */}
@@ -84,26 +90,27 @@ const Profile = ({ user, UI, editUserDetails, getPosts, data }, history) => {
           </Button>,
         ]}
       >
-        <Form>
+        <Form initialValues={initialValues}>
           <Form.Item label="Bio" name="bio">
             <Input
+              name="bio"
               placeholder="Add bio"
               onChange={(e) => setBio(e.target.value)}
-              defaultValue={credentials.bio}
+              // defaultValue={credentials.bio}
             />
           </Form.Item>
           <Form.Item label="Website" name="website">
             <Input
               placeholder="Add website"
               onChange={(e) => setWebsite(e.target.value)}
-              defaultValue={credentials.website}
+              // defaultValue={credentials.website}
             />
           </Form.Item>
           <Form.Item label="location" name="location">
             <Input
               placeholder="Add location"
               onChange={(e) => setLocation(e.target.value)}
-              defaultValue={credentials.location}
+              // defaultValue={credentials.location}
             />
           </Form.Item>
         </Form>
