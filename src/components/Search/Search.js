@@ -1,59 +1,73 @@
 import React, { useState } from "react";
 import { Input, AutoComplete } from "antd";
+import { connect } from "react-redux";
+import { useEffect } from "react";
+import Modal from "antd/lib/modal/Modal";
+import OtherUser from "../OtherUser/OtherUser";
+import store from "../../redux/store";
+import { CLEAR_USER } from "../../redux/types";
+import { getOtherUser } from "../../redux/actions/userActions";
 
-function getRandomInt(max, min = 0) {
-  return Math.floor(Math.random() * (max - min + 1)) + min; // eslint-disable-line no-mixed-operators
-}
-const searchResult = (query) =>
-  new Array(getRandomInt(5))
-    .join(".")
-    .split(".")
-    .map((item, idx) => {
-      const category = `${query}${idx}`;
-      return {
-        value: category,
-        label: (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <span>
-              Found {query} on{" "}
-              <a
-                href={`https://s.taobao.com/search?q=${query}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {category}
-              </a>
-            </span>
-            <span>{getRandomInt(200, 100)} results</span>
-          </div>
-        ),
-      };
-    });
-
-const Search = () => {
+const Search = (props) => {
   const [options, setOptions] = useState([]);
 
-  const handleSearch = (value) => {
-    setOptions(value ? searchResult(value) : []);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (props.users) {
+      const opts = [];
+      // setOptions(props.users.map((user) => user.handle));
+      props.users.forEach((user) => {
+        // console.log(user.handle);
+        opts.push({ value: user.handle });
+      });
+      setOptions(opts);
+    }
+  }, [props.users]);
+
+  const clearUser = () => {
+    setVisible(false);
+    store.dispatch({ type: CLEAR_USER });
+  };
+  const onSelect = (value) => {
+    setVisible(true);
+    props.getOtherUser(value);
   };
 
   return (
-    <AutoComplete
-      dropdownMatchSelectWidth={252}
-      style={{
-        width: 300,
-      }}
-      options={options}
-      onSearch={handleSearch}
-    >
-      <Input.Search placeholder="Search users ..." enterButton />
-    </AutoComplete>
+    <>
+      <Modal
+        style={{ top: 20 }}
+        visible={visible}
+        onCancel={clearUser}
+        className="post__modal"
+      >
+        <OtherUser />
+      </Modal>
+      <AutoComplete
+        dropdownMatchSelectWidth={252}
+        style={{
+          width: 300,
+        }}
+        defaultValue=""
+        notFoundContent="Not found"
+        options={options}
+        filterOption={(inputValue, option) =>
+          option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+        }
+        onSelect={onSelect}
+        allowClear
+      >
+        <Input.Search placeholder="Search users ..." enterButton />
+      </AutoComplete>
+    </>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    users: state.user.users,
+  };
+};
+const mapActionsToProps = { getOtherUser };
 
-export default Search;
+export default connect(mapStateToProps, mapActionsToProps)(Search);

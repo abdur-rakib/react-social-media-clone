@@ -144,7 +144,7 @@ const Profile = ({ user, UI, editUserDetails, getPosts, data }, history) => {
                   Edit
                 </Button>
               </div>
-              <div className="others__info d-flex justify-content-between mx-5 mx-md-4">
+              <div className="others__info d-flex justify-content-center">
                 <p>
                   <span className="font-weight-bold">40</span> posts
                 </p>

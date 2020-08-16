@@ -84,6 +84,7 @@ a:hover {
 .ant-card-body {
   padding: 10px;
   padding-top: 15px;
+  margin-bottom: 20px;
 }
 .actions {
   display: flex;
@@ -222,4 +223,9 @@ a:hover {
 .profile__image {
   height: 200px !important;
   width: 200px !important;
+}
+.others__info {
+  width: 350px;
+  margin: auto;
+  text-align: center;
 }

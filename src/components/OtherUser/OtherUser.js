@@ -89,10 +89,7 @@ const OtherUser = (props) => {
 
           {props.otherUser.credentials ? (
             <div className="mt-3">
-              <h4
-                className="mx-auto text-center"
-                style={{ borderBottom: "2px solid #1890ff", width: "43%" }}
-              >
+              <h4 className="mx-auto text-center">
                 {props.otherUser.credentials.handle}'s post
               </h4>
               {props.otherUser.posts?.length === 0 ? (
