@@ -27,7 +27,7 @@ const LeftSider = () => {
         <span className="font-italic">MB</span>
       </div>
 
-      <Menu theme="" defaultSelectedKeys={["1"]} mode="inline">
+      <Menu theme="" mode="inline">
         <Menu.Item key="1" icon={<HomeOutlined />}>
           <Link to="/">Home</Link>
         </Menu.Item>

@@ -14,6 +14,8 @@ import store from "./redux/store";
 import { logoutUser, getUserData } from "./redux/actions/userActions";
 import { SET_AUTHENTICATED } from "./redux/types";
 import AuthRoute from "./util/AuthRoute";
+import { useEffect } from "react";
+import { getPosts } from "./redux/actions/dataActions";
 
 axios.defaults.baseURL =
   "https://cors-anywhere.herokuapp.com/https://us-central1-react-mukh-boi-project.cloudfunctions.net/api";
@@ -31,14 +33,17 @@ const App = () => {
       store.dispatch(getUserData());
     }
   }
+  useEffect(() => {
+    store.dispatch(getPosts());
+  });
   return (
     <div className="App">
       <BrowserRouter>
         {/* {!authenticated ? <Login /> : <Home />} */}
         <Switch>
-          <AuthRoute exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <AuthRoute path="/" component={Home} />
         </Switch>
       </BrowserRouter>
     </div>

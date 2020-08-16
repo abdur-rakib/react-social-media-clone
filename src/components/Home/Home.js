@@ -5,7 +5,7 @@ import RightSider from "../RightSider/RightSider";
 import Posts from "../Posts/Posts";
 import CreatePost from "../CreatePost/CreatePost";
 import Title from "../Title";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, useRouteMatch } from "react-router-dom";
 import Explore from "../Explore/Eplore";
 import Message from "../Message/Message";
 import Notifications from "../Notifications/Notifications";
@@ -13,6 +13,8 @@ import Profile from "../Profile/Profile";
 import Bookmarks from "../Bookmarks/Bookmarks";
 
 const Home = () => {
+  let { path, url } = useRouteMatch();
+  console.log(path, url);
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <BrowserRouter>

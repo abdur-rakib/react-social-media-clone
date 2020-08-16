@@ -19,7 +19,7 @@ const Posts = (props) => {
   ) : (
     <PostsSkeleton />
   );
-  return <>{renderPosts}</>;
+  return renderPosts;
 };
 const mapStateToProps = (state) => {
   return {

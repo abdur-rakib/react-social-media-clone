@@ -197,7 +197,7 @@ const Profile = ({ user, UI, editUserDetails, getPosts, data }, history) => {
                 user.likes.map((likePost) => (
                   <Post
                     key={likePost.postId}
-                    post={data.posts.find(
+                    post={data.posts?.find(
                       (post) => post.postId === likePost.postId
                     )}
                   />

@@ -6,6 +6,8 @@ import { createMessage, db } from "../../redux/actions/userActions";
 import { useState } from "react";
 import { useEffect } from "react";
 
+import AutoScroll from "@brianmcallister/react-auto-scroll";
+
 const Message = (props) => {
   const [body, setBody] = useState("");
   const [messages, setMessages] = useState([]);
@@ -38,11 +40,18 @@ const Message = (props) => {
       });
   }, []);
   return (
-    <div className="">
+    <AutoScroll>
       <Card className="mb-2 ml-4 mr-4 mr-md-0" style={{ minHeight: "100vh" }}>
         <h4 className="mb-2">Group Messages</h4>
         {messages.length === 0 ? (
           <>
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
             <Skeleton />
             <Skeleton />
             <Skeleton />
@@ -62,7 +71,7 @@ const Message = (props) => {
           />
         </form>
       </Card>
-    </div>
+    </AutoScroll>
   );
 };
 

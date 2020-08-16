@@ -56,7 +56,6 @@ const Search = (props) => {
           option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
         }
         onSelect={onSelect}
-        allowClear
       >
         <Input.Search placeholder="Search users ..." enterButton />
       </AutoComplete>
