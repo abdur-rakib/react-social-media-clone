@@ -25,35 +25,44 @@ const Notifications = (props) => {
     store.dispatch(getUserData());
   }, []);
 
+  const cancel = () => {
+    store.dispatch(getUserData());
+    setVisible(false);
+  };
+
   const unReadNotifications = props.user.notifications?.filter(
     (not) => not.read === false
   );
-  console.log(unReadNotifications);
+  // console.log(unReadNotifications);
   return (
     <div>
       <Modal
         style={{ top: 20 }}
         visible={visible}
-        onCancel={() => setVisible(false)}
+        onCancel={cancel}
         className="post__modal"
       >
         <PostDetails />
       </Modal>
       <Card className="mb-2 ml-4 mr-4 mr-md-0" style={{ minHeight: "100vh" }}>
-        {unReadNotifications?.map((notification, index) => (
-          <Alert
-            onClick={() =>
-              readNotification(notification.postId, notification.id)
-            }
-            key={index}
-            message={`${notification.sender} ${
-              notification.type === "like" ? "liked" : "commented on"
-            } your post (${moment(notification.createdAt)
-              .startOf("seconds")
-              .fromNow()})`}
-            type="success"
-          />
-        ))}
+        {unReadNotifications.length === 0 ? (
+          <h4 className="text-center">No new notifications</h4>
+        ) : (
+          unReadNotifications?.map((notification) => (
+            <Alert
+              onClick={() =>
+                readNotification(notification.postId, notification.id)
+              }
+              key={notification.id}
+              message={`${notification.sender} ${
+                notification.type === "like" ? "liked" : "commented on"
+              } your post (${moment(notification.createdAt)
+                .startOf("seconds")
+                .fromNow()})`}
+              type="success"
+            />
+          ))
+        )}
       </Card>
     </div>
   );
