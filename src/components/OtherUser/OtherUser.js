@@ -94,8 +94,13 @@ const OtherUser = (props) => {
                   {props.otherUser.credentials.handle} has no posts
                 </h5>
               ) : (
-                props.otherUser.posts?.map((post, index) => (
-                  <Post key={index} post={post} />
+                props.otherUser.posts?.map((otherPost) => (
+                  <Post
+                    key={otherPost.postId}
+                    post={props.data.posts.find(
+                      (post) => post.postId === otherPost.postId
+                    )}
+                  />
                 ))
               )}
             </div>
