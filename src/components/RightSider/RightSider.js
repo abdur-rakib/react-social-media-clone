@@ -8,6 +8,8 @@ import { allUsers, getOtherUser } from "../../redux/actions/userActions";
 import Modal from "antd/lib/modal/Modal";
 import { useState } from "react";
 import OtherUser from "../OtherUser/OtherUser";
+import store from "../../redux/store";
+import { CLEAR_USER } from "../../redux/types";
 
 const RightSider = (props) => {
   const { handle, imageUrl } = props.credentials;
@@ -21,6 +23,11 @@ const RightSider = (props) => {
   }, [handle]);
   const getUserDetails = (handle) => {
     props.getOtherUser(handle);
+  };
+
+  const clearUser = () => {
+    setVisible(false);
+    store.dispatch({ type: CLEAR_USER });
   };
 
   const users = props.user.users ? (
@@ -59,7 +66,7 @@ const RightSider = (props) => {
       <Modal
         style={{ top: 20 }}
         visible={visible}
-        onCancel={() => setVisible(false)}
+        onCancel={clearUser}
         className="post__modal"
       >
         <OtherUser />

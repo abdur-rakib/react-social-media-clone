@@ -8,6 +8,7 @@ import {
   CHANGE_IMAGE,
   MARK_NOTIFICATIONS_READ,
   SET_OTHER_USER,
+  CLEAR_USER,
 } from "../types";
 
 const initialState = {
@@ -80,6 +81,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         otherUser: action.payload,
+      };
+    case CLEAR_USER:
+      return {
+        ...state,
+        otherUser: null,
       };
     default:
       return state;

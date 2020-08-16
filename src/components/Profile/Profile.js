@@ -35,6 +35,9 @@ const Profile = ({ user, UI, editUserDetails, getPosts, data }, history) => {
     store.dispatch(getUserData());
     getPosts();
     mapUserDetailsToState(user.credentials);
+    // return () => {
+    //   console.log("Unmount Profile");
+    // };
     // eslint-disable-next-line
   }, []);
 

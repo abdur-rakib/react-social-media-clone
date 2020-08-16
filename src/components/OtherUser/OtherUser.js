@@ -8,8 +8,14 @@ import {
 } from "@ant-design/icons";
 import moment from "moment";
 import Post from "../Post/Post";
+import { useEffect } from "react";
 
 const OtherUser = (props) => {
+  useEffect(() => {
+    return () => {
+      console.log("Unmount user");
+    };
+  }, []);
   return (
     <div>
       {!props.otherUser ? (
