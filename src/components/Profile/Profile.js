@@ -35,6 +35,7 @@ const Profile = ({ user, UI, editUserDetails, getPosts, data }, history) => {
     store.dispatch(getUserData());
     getPosts();
     mapUserDetailsToState(user.credentials);
+
     // return () => {
     //   console.log("Unmount Profile");
     // };
@@ -66,9 +67,9 @@ const Profile = ({ user, UI, editUserDetails, getPosts, data }, history) => {
   const { credentials } = user;
 
   const initialValues = {
-    bio,
-    website,
-    location,
+    bio: credentials.bio,
+    website: credentials.website,
+    location: credentials.location,
   };
   const renderProfile = credentials.imageUrl ? (
     <div>
@@ -205,13 +206,18 @@ const Profile = ({ user, UI, editUserDetails, getPosts, data }, history) => {
               )}
             </TabPane>
             <TabPane tab="Saved Posts" key="3">
-              <h1 className="display-4 text-center">
-                Currently on progress{" "}
+              <h4 className=" text-center mt-4">
+                Currently workings on progress{" "}
                 <span aria-label="img" role="img">
                   😁
                 </span>
                 ....
-              </h1>
+              </h4>
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/react-mukh-boi-project.appspot.com/o/undraw_Progress_tracking_re_ulfg.png?alt=media&token=ada23321-47df-44d7-a83d-489878b59567"
+                className="img-fluid"
+                alt=""
+              />
             </TabPane>
           </Tabs>
         </div>

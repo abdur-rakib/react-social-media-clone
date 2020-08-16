@@ -46,7 +46,14 @@ const Notifications = (props) => {
       </Modal>
       <Card className="mb-2 ml-4 mr-4 mr-md-0" style={{ minHeight: "100vh" }}>
         {unReadNotifications.length === 0 ? (
-          <h4 className="text-center">No new notifications</h4>
+          <>
+            <h4 className="text-center">No new notifications</h4>
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/react-mukh-boi-project.appspot.com/o/undraw_new_notifications_fhvw.png?alt=media&token=59c56d2f-87d3-43e7-926b-12abcf05e8d4"
+              className="img-fluid"
+              alt=""
+            />
+          </>
         ) : (
           unReadNotifications?.map((notification) => (
             <Alert
