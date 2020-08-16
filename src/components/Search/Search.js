@@ -51,7 +51,7 @@ const Search = () => {
       options={options}
       onSearch={handleSearch}
     >
-      <Input.Search placeholder="Search posts ..." enterButton />
+      <Input.Search placeholder="Search users ..." enterButton />
     </AutoComplete>
   );
 };

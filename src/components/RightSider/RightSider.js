@@ -78,7 +78,7 @@ const RightSider = (props) => {
               <Avatar
                 src={imageUrl}
                 className="img-fluid  rounded-circle"
-                style={{ width: "40px" }}
+                style={{ width: "50px", height: "50px" }}
               />
               <h5 className="ml-3">{handle}</h5>
             </>

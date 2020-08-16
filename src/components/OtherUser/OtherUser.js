@@ -8,14 +8,8 @@ import {
 } from "@ant-design/icons";
 import moment from "moment";
 import Post from "../Post/Post";
-import { useEffect } from "react";
 
 const OtherUser = (props) => {
-  useEffect(() => {
-    return () => {
-      console.log("cleaned up");
-    };
-  });
   return (
     <div>
       {!props.otherUser ? (
@@ -90,7 +84,7 @@ const OtherUser = (props) => {
           {props.otherUser.credentials ? (
             <div className="mt-3">
               <h4
-                className="mx-auto "
+                className="mx-auto text-center"
                 style={{ borderBottom: "2px solid #1890ff", width: "43%" }}
               >
                 {props.otherUser.credentials.handle}'s post

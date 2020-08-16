@@ -125,7 +125,7 @@ const Profile = ({ user, UI, editUserDetails, getPosts, data }, history) => {
               <img
                 src={credentials.imageUrl}
                 alt=""
-                className="img-fluid rounded-circle"
+                className="profile__Image img-fluid rounded-circle"
               />
               <small className="text-center my-2 d-block">
                 <CalendarOutlined /> Joined{" "}

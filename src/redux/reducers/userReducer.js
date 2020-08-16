@@ -18,6 +18,7 @@ const initialState = {
   notifications: [],
   users: null,
   otherUser: null,
+  messagaes: [],
 };
 
 export default function (state = initialState, action) {

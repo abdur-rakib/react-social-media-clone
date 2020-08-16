@@ -28,7 +28,7 @@ const config = {
 
 firebase.initializeApp(config);
 const storage = firebase.storage();
-const db = firebase.firestore();
+export const db = firebase.firestore();
 
 export const loginUser = (userData, history) => (dispatch) => {
   dispatch({ type: SET_LOADING });
@@ -158,4 +158,15 @@ export const getOtherUser = (handle) => (dispatch) => {
       dispatch({ type: CLEAR_LOADING });
     })
     .catch((err) => console.log(err));
+};
+
+export const createMessage = (handle, image, body) => {
+  db.collection("messages")
+    .add({
+      userHandler: handle,
+      body: body,
+      userImage: image,
+      createdAt: new Date().toISOString(),
+    })
+    .then((res) => console.log(res.data));
 };

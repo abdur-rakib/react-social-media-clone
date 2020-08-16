@@ -173,3 +173,53 @@ a:hover {
   margin-bottom: 5px;
   cursor: pointer;
 }
+
+/* message */
+.message {
+  /* margin-left: 40px; */
+  margin-bottom: 10px;
+}
+
+.message__body {
+  /* float: right; */
+  /* border: 1px solid gray; */
+  border-radius: 25px;
+  padding: 8px 15px;
+  margin-bottom: 5px;
+}
+
+.custom_bg {
+  background-color: #1890ff24;
+  margin-left: 300px;
+}
+.message__image {
+  height: 50px;
+  width: 50px;
+  margin-right: 7px;
+}
+
+.mesage__info > p {
+  margin-bottom: 0;
+}
+.message__form {
+  width: 90%;
+  margin-left: -20px;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  height: 50px;
+}
+
+.form-control:focus {
+  box-shadow: none !important;
+}
+
+.form-control {
+  border: transparent !important;
+  margin-top: 8px !important;
+}
+
+.profile__image {
+  height: 200px !important;
+  width: 200px !important;
+}
