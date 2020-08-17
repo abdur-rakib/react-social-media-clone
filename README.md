@@ -29,4 +29,6 @@
 - Improve Auth validation
 - Lazy loading
 - Auto scroll to bottom
-- Need to add follow system
+- Add follow system
+- Add Save post
+- Add share post link
