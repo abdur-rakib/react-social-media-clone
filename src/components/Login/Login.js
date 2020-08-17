@@ -24,7 +24,6 @@ const Login = (props) => {
       // props.history.push("/");
     }
   }, [props.user.authenticated, props.history]);
-  console.log(props.UI.errors);
   return (
     <div className="row">
       <div className="col-sm-8 col-md-6 mx-auto p-4">

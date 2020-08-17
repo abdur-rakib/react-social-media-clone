@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Checkbox, Card } from "antd";
+import { Form, Input, Button, Checkbox, Card, message } from "antd";
 import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 // User actions
 import { signupUser } from "../../redux/actions/userActions";
+import store from "../../redux/store";
+import { CLEAR_ERRORS } from "../../redux/types";
 
 const Signup = (props) => {
   const [email, setEmail] = useState();
@@ -31,6 +33,13 @@ const Signup = (props) => {
       <div className="col-sm-8 col-md-6 mx-auto p-4">
         <Card className="px-4 py-1 mx-4">
           <h2 className="text-center mb-3">Signup</h2>
+          {props.UI.errors?.confirmPassword &&
+            message.error(props.UI.errors?.confirmPassword)}
+          {props.UI.errors?.error && message.error(props.UI.errors?.error)}
+          {/* {props.UI.errors?.confirmPassword &&
+            message.error(props.UI.errors?.confirmPassword)}
+          {props.UI.errors?.confirmPassword &&
+            message.error(props.UI.errors?.confirmPassword)} */}
           <Form
             name="normal_login"
             className="login-form"
@@ -71,7 +80,10 @@ const Signup = (props) => {
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
                 placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  store.dispatch({ type: CLEAR_ERRORS });
+                }}
               />
             </Form.Item>
             <Form.Item
@@ -87,9 +99,15 @@ const Signup = (props) => {
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
                 placeholder="Confirm Password"
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                  store.dispatch({ type: CLEAR_ERRORS });
+                }}
               />
             </Form.Item>
+            {props.UI.errors?.confirmPassword && (
+              <p>{props.UI.errors.confirmPassword}</p>
+            )}
             <Form.Item
               name="handle"
               rules={[
