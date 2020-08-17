@@ -28,6 +28,7 @@ const Signup = (props) => {
       props.history.push("/");
     }
   }, [props.user.authenticated, props.history]);
+  // console.log(props.UI.errors);
   return (
     <div className="row">
       <div className="col-sm-8 col-md-6 mx-auto p-4">
@@ -36,10 +37,8 @@ const Signup = (props) => {
           {props.UI.errors?.confirmPassword &&
             message.error(props.UI.errors?.confirmPassword)}
           {props.UI.errors?.error && message.error(props.UI.errors?.error)}
-          {/* {props.UI.errors?.confirmPassword &&
-            message.error(props.UI.errors?.confirmPassword)}
-          {props.UI.errors?.confirmPassword &&
-            message.error(props.UI.errors?.confirmPassword)} */}
+          {props.UI.errors?.email && message.error(props.UI.errors?.email)}
+
           <Form
             name="normal_login"
             className="login-form"
@@ -64,7 +63,10 @@ const Signup = (props) => {
               <Input
                 prefix={<MailOutlined className="site-form-item-icon" />}
                 placeholder="Email"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  store.dispatch({ type: CLEAR_ERRORS });
+                }}
               />
             </Form.Item>
             <Form.Item
@@ -105,9 +107,7 @@ const Signup = (props) => {
                 }}
               />
             </Form.Item>
-            {props.UI.errors?.confirmPassword && (
-              <p>{props.UI.errors.confirmPassword}</p>
-            )}
+
             <Form.Item
               name="handle"
               rules={[
@@ -120,7 +120,10 @@ const Signup = (props) => {
               <Input
                 prefix={<UserOutlined className="site-form-item-icon" />}
                 placeholder="Handle"
-                onChange={(e) => setHandle(e.target.value)}
+                onChange={(e) => {
+                  setHandle(e.target.value);
+                  store.dispatch({ type: CLEAR_ERRORS });
+                }}
               />
             </Form.Item>
             <Form.Item
