@@ -29,3 +29,4 @@
 - Improve Auth validation
 - Lazy loading
 - Auto scroll to bottom
+- Need add follow system
