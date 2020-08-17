@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Checkbox, Card } from "antd";
+import { Form, Input, Button, Checkbox, Card, message } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import { connect } from "react-redux";
 import { loginUser } from "../../redux/actions/userActions";
+import { CLEAR_ERRORS } from "../../redux/types";
+import store from "../../redux/store";
 
 const Login = (props) => {
   const [email, setEmail] = useState();
@@ -22,11 +24,13 @@ const Login = (props) => {
       // props.history.push("/");
     }
   }, [props.user.authenticated, props.history]);
+  console.log(props.UI.errors);
   return (
     <div className="row">
       <div className="col-sm-8 col-md-6 mx-auto p-4">
         <Card className="px-4 py-1 mx-4">
           <h2 className="text-center mb-3">Login</h2>
+          {props.UI.errors && message.error(props.UI.errors.general)}
           <Form
             name="normal_login"
             className="login-form"
@@ -51,7 +55,10 @@ const Login = (props) => {
               <Input
                 prefix={<MailOutlined className="site-form-item-icon" />}
                 placeholder="Email"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  store.dispatch({ type: CLEAR_ERRORS });
+                }}
               />
             </Form.Item>
             <Form.Item
@@ -67,7 +74,10 @@ const Login = (props) => {
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
                 placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  store.dispatch({ type: CLEAR_ERRORS });
+                }}
               />
             </Form.Item>
             <Form.Item>

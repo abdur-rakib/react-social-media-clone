@@ -42,11 +42,10 @@ export const loginUser = (userData, history) => (dispatch) => {
       message.success("Logged in successfully");
     })
     .catch((err) => {
-      // dispatch({
-      //   type: SET_ERRORS,
-      //   payload: err.response.data,
-      // });
-      console.log(err);
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data,
+      });
     });
 };
 
