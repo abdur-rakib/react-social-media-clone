@@ -28,4 +28,3 @@
 - Improve Auth validation
 - Lazy loading
 - Auto scroll to bottom
-- Display no internet message
