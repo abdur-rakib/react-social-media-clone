@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.5.2",
     "antd-img-crop": "^3.9.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.1",
     "dayjs": "^1.8.33",
     "firebase": "^7.17.2",
